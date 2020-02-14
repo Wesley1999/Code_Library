@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>代码库</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <link href="prism/prism.css" rel="stylesheet" />
+    <style>
+        a {
+            color: blue;
+        }
+        .layui-colla-content {
+            /*使文本自动换行*/
+            word-wrap:break-word;
+            padding: 5px;
+
+        }
+        .layui-colla-title {
+            user-select:none;       // 禁止选中
+        }
+        button {
+            margin-right: 10px
+        }
+        body {
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body style="max-width: 1300px; margin: auto; padding: 10px">
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+    <legend><a href="http://index.wangshaogang.com/" style="color: black">索引</a> / <a href="http://code.wangshaogang.com/" style="color: black">代码库</a></legend>
+</fieldset>
+<div class="layui-collapse layui-colla-item">
+
+    <div class="layui-colla-item">
+        <h2 class="layui-colla-title">前端</h2>
+        <div class="layui-colla-content">
+            <div class="layui-colla-item">
+                <div class="layui-collapse">
+                    <h2 class="layui-colla-title">基础</h2>
+                    <div class="layui-colla-content">
+                        <div class="layui-collapse">
+                            <h2 class="layui-colla-title">适配移动端</h2>
+                            <div class="layui-colla-content">
+                                <div class="layui-colla-item">
+                                    在head中添加下面的代码，可以禁止缩放
+                                    <pre>
+                                        <code class="language-html">
+                                            &lt;meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"&gt;
+                                        </code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </div><!-- 适配移动端 -->
+                        <div class="layui-collapse">
+                            <h2 class="layui-colla-title">为字符串增加<code class="language-javascript">replaceAll()</code>函数</h2>
+                            <div class="layui-colla-content">
+                                <div class="layui-colla-item">
+                                    <pre>
+                                        <code class="language-javascript">
+                                            String.prototype.replaceAll = function(s1,s2){
+                                                return this.replace(new RegExp(s1,"gm"),s2);
+                                            };
+                                        </code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </div><!-- replaceAll -->
+                        <div class="layui-collapse">
+                            <h2 class="layui-colla-title">为Date增加<code class="language-javascript">format()</code>函数</h2>
+                            <div class="layui-colla-content">
+                                <div class="layui-colla-item">
+                                    <pre>
+                                        <code class="language-javascript">
+                                            //author: meizz
+                                            Date.prototype.format = function (fmt) {
+                                                var o = {
+                                                    "M+": this.getMonth() + 1, //月份
+                                                    "d+": this.getDate(), //日
+                                                    "h+": this.getHours(), //小时
+                                                    "m+": this.getMinutes(), //分
+                                                    "s+": this.getSeconds(), //秒
+                                                    "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                                                    "S": this.getMilliseconds() //毫秒
+                                                };
+                                                if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+                                                for (var k in o)
+                                                    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                                                return fmt;
+                                            }
+                                        </code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </div><!-- Date format -->
+                        <div class="layui-collapse">
+                            <h2 class="layui-colla-title">字符串压缩与解压</h2>
+                            <div class="layui-colla-content">
+                                <div class="layui-colla-item">
+                                    <pre>
+                                        <code class="language-javascript">
+                                            // 压缩
+                                            function compressData(data){
+                                                var cData;
+                                                cData= encodeURIComponent(data);
+                                                cData= unescape(cData);
+                                                cData= window.btoa(cData);
+                                                return cData;
+                                            }
+                                            // 解压
+                                            function decompressData(data){
+                                                var cData;
+                                                cData= window.atob(data);
+                                                cData= escape(cData);
+                                                cData= decodeURIComponent(cData);
+                                                return cData;
+                                            }
+                                        </code>
+                                    </pre>
+                                </div>
+                                <hr>
+                                字符串压缩，还能避免将数据存入隐藏标签被浏览器解析的问题。
+                            </div>
+                        </div><!-- 字符串压缩与解压 -->
+                        <div class="layui-collapse">
+                            <h2 class="layui-colla-title">转换为url参数</h2>
+                            <div class="layui-colla-content">
+                                <div class="layui-colla-item">
+                                    <pre>
+                                        <code class="language-javascript">
+                                            /**
+                                             * 将整个map转换为url参数，依赖parseParameter()函数
+                                             * @param paramsMap 键值对形式的参数
+                                             * @returns {string} 格式：key1=value1&key2=value2，返回值可以直接直接或为http请求的参数（GET或POST均可）
+                                             */
+                                            function parseParameterByMap(paramsMap) {
+                                                let data = "";
+                                                if (typeof(paramsMap) == "undefined") {
+                                                    return data;
+                                                }
+                                                for (let [key, value] of paramsMap) {
+                                                    data = parseParameter(data, key, value);
+                                                }
+                                                return data;
+                                            }
+
+                                            /**
+                                             * 转换为url参数
+                                             * @param data 已有的数据，可以为空，或者是上次调用此函数的返回值
+                                             * @param key 参数名
+                                             * @param value 参数值
+                                             * @returns {string} 格式：key1=value1&key2=value2，返回值可以直接直接或为http请求的参数（GET或POST均可）
+                                             */
+                                            function parseParameter(data, key, value) {
+                                                if (key == null) {
+                                                    alert("key不能为null");
+                                                }
+                                                if (value == null || value === "" || typeof(value) == "undefined") {
+                                                    return data;
+                                                }
+                                                // 对value编码
+                                                value = encodeURIComponent(value);
+                                                if (data == null || data === "") {
+                                                    return key + "=" + value;
+                                                } else {
+                                                    return data + "&" + key + "=" + value;
+                                                }
+                                            }
+                                        </code>
+                                    </pre>
+                                </div>
+                                <hr>
+                            </div>
+                        </div><!-- 转换为url参数 -->
+                        <div class="layui-collapse">
+                            <h2 class="layui-colla-title">ajax</h2>
+                            <div class="layui-colla-content">
+                                <div class="layui-colla-item">
+                                    <pre>
+                                        <code class="language-javascript">
+                                                $.ajax({
+                                                url: '/api/test.action',
+                                                data: parseParameterByMap(paramsMap),
+                                                type: "POST",
+                                                success: function (returnData) {
+                                                    if (returnData.status == 0) {
+
+                                                    }
+                                                },
+                                                error: function () {
+
+                                                }
+                                            })
+                                        </code>
+                                    </pre>
+                                </div>
+                                <hr>
+                            </div>
+                        </div><!-- ajax -->
+                        <div class="layui-collapse">
+                            <h2 class="layui-colla-title">生成分页导航栏</h2>
+                            <div class="layui-colla-content">
+                                <div class="layui-colla-item">
+                                    <pre>
+                                        <code class="language-javascript">
+                                                /**
+                                                 * 生成分页导航栏
+                                                 * @param id 导航栏所在标签的id
+                                                 * @param returnData 用于生成导航栏的数据，由后端提供
+                                                 * @param paramsMap 除pageNum外的筛选条件
+                                                 * @param functionName 每页按钮点击时要执行的函数名称
+                                                 */
+                                                function generatePaginationNavigationBar(id, returnData, paramsMap, functionName) {
+                                                    let aimFunction = eval(functionName);
+                                                    let currentPage = returnData.data.pageNum;
+                                                    let firstPage = returnData.data.firstPage;
+                                                    let lastPage = returnData.data.lastPage;
+                                                    // 第一页
+                                                    if (returnData.data.isFirstPage) {
+                                                        $("#"+id).append("&lt;li&gt;&lt;a class='disabled' style='background-color: #f5f5f5'&gt;&laquo;&lt;/a&gt;&lt;/li&gt;")
+                                                    } else {
+                                                        $("#"+id).append("&lt;li&gt;&lt;a href='javascript:void(0);' class='wsg-eachPage' value="+firstPage+"&gt;&laquo;&lt;/a&gt;&lt;/li&gt;")
+                                                    }
+                                                    // 每一页
+                                                    for (let i = 0; i &lt; returnData.data.navigatepageNums.length; i++) {
+                                                        let pageNum = returnData.data.navigatepageNums[i];
+                                                        // 如果是当前页
+                                                        if (pageNum === currentPage) {
+                                                            $("#"+id).append("&lt;li&gt;&lt;a class='disabled' style='background-color: #f5f5f5'&gt;" + pageNum + "&lt;/a&gt;&lt;/li&gt;")
+                                                        } else {
+                                                            $("#"+id).append("&lt;li&gt;&lt;a href='javascript:void(0);' class='wsg-eachPage' value="+pageNum+"&gt;"+pageNum+"&lt;/a&gt;&lt;/li&gt;")
+                                                        }
+                                                    }
+                                                    // 最后一页
+                                                    if (returnData.data.isLastPage) {
+                                                        $("#"+id).append("&lt;li&gt;&lt;a class='disabled' style='background-color: #f5f5f5'&gt;&raquo;&lt;/a&gt;&lt;/li&gt;")
+                                                    } else {
+                                                        $("#"+id).append("&lt;li&gt;&lt;a href='javascript:void(0);' class='wsg-eachPage' value="+lastPage+"&gt;&raquo;&lt;/a&gt;&lt;/li&gt;")
+                                                    }
+                                                    $(".wsg-eachPage").click(function(thisPage){
+                                                        let pageNum = $(thisPage.target).attr("value");
+                                                        let currentParamsMap = paramsMap;
+                                                        currentParamsMap.set("pageNum", pageNum)
+                                                        aimFunction(currentParamsMap)
+                                                    });
+                                                }
+                                        </code>
+                                    </pre>
+                                </div>
+                                <hr>
+                            </div>
+                        </div><!-- 生成分页导航栏 -->
+                    </div>
+                </div><!-- 基本 -->
+                <div class="layui-collapse">
+                    <h2 class="layui-colla-title">jQuery</h2>
+                    <div class="layui-colla-content">
+                        <div class="layui-colla-item">
+                            <button class="layui-btn layui-btn-sm">下载</button><span>https://lib-wsg.oss-cn-shanghai.aliyuncs.com/jquery-3.4.1.min.js</span>
+                        </div>
+                    </div>
+                </div><!-- jQuery -->
+                <div class="layui-collapse">
+                    <h2 class="layui-colla-title">bootstrap</h2>
+                    <div class="layui-colla-content">
+                        <div class="layui-colla-item">
+                            <button class="layui-btn layui-btn-sm">下载</button><span>https://lib-wsg.oss-cn-shanghai.aliyuncs.com/bootstrap-v4.4.1.zip</span>
+                            <hr>
+                            Bootstrap4文档：<a href="https://v4.bootcss.com/docs/getting-started/introduction/">https://v4.bootcss.com/docs/getting-started/introduction/</a>
+                            <hr>
+                            引入：（引入BootStrap前要先引入jQuery）
+                            <pre>
+                                <code class="language-html">
+                                    &lt;!--jQuery--&gt;
+                                    &lt;script src="jQuery/jquery-3.4.1.min.js"&gt;&lt;/script&gt;
+                                    &lt;!-- BootStrap --&gt;
+                                    &lt;link rel="stylesheet"  href="bootstrap/css/bootstrap.min.css"&gt;
+                                    &lt;script src="bootstrap/js/bootstrap.min.js"&gt;&lt;/script&gt;
+                                </code>
+                            </pre>
+                        </div>
+                    </div>
+                </div><!-- BootStrap -->
+                <div class="layui-collapse">
+                    <h2 class="layui-colla-title">layui</h2>
+                    <div class="layui-colla-content">
+                        <div class="layui-colla-item">
+                            <button class="layui-btn layui-btn-sm">下载</button><span>https://lib-wsg.oss-cn-shanghai.aliyuncs.com/layui-v2.5.6.zip</span>
+                            <hr>
+                            官方文档：<a href="https://www.layui.com/doc/">https://www.layui.com/doc/</a>
+                            <div class="layui-collapse">
+                                <h2 class="layui-colla-title">laydate</h2>
+                                <div class="layui-colla-content">
+                                    <div class="layui-colla-item">
+
+                                        <button class="layui-btn layui-btn-sm">下载</button><span>https://lib-wsg.oss-cn-shanghai.aliyuncs.com/laydate-v5.0.9.zip</span>
+                                        <hr>
+                                        laydate是layui的一个独立模块，官方文档：<a href="https://www.layui.com/laydate/">https://www.layui.com/laydate/</a>
+                                    </div>
+                                </div>
+                            </div><!-- laydate -->
+                        </div>
+                    </div>
+                </div><!-- layui -->
+                <div class="layui-collapse">
+                    <h2 class="layui-colla-title">marked.min.js</h2>
+                    <div class="layui-colla-content">
+                        <div class="layui-colla-item">
+                            <button class="layui-btn layui-btn-sm">下载</button><span>https://lib-wsg.oss-cn-shanghai.aliyuncs.com/marked.min.js</span>
+                        </div>
+                        <hr>
+                        引入js文件后，可使用函数<code class="language-javascript">marked()</code>将markdown转换为html。
+                    </div>
+                </div><!-- marked -->
+                <div class="layui-collapse">
+                    <h2 class="layui-colla-title">prism-v1.19.0.zip</h2>
+                    <div class="layui-colla-content">
+                        <div class="layui-colla-item">
+                            <button class="layui-btn layui-btn-sm">下载</button><span>https://lib-wsg.oss-cn-shanghai.aliyuncs.com/prism-v1.19.0.zip</span>
+                            <hr>
+                            官方下载地址：<a href="https://prismjs.com/download.html">https://prismjs.com/download.html</a>
+                            <hr>
+                            代码中的符号<code class="language-html">&lt;</code> <code class="language-html">&gt;</code>最好转换成<code class="language-html">&amp;lt;</code> <code class="language-html">&amp;gt;</code>，否则html标签会被浏览器解析。<br>
+                            如果要显示<code class="language-html">&amp;</code>，可转换成<code class="language-html">&amp;amp;</code>。<br>
+                            可使用此工具进行转换：<a href="https://text.wangshaogang.com/" target="_blank">https://text.wangshaogang.com/</a>
+                            <hr>
+                            参考代码：
+                            <pre>
+                                <code class="language-html">
+                                    &lt;pre class="line-numbers"&gt;
+                                        &lt;code class="language-html"&gt;
+                                            &amp;lt;!DOCTYPE html&amp;gt;
+                                            &amp;lt;html lang="en"&amp;gt;
+                                            &amp;lt;head&amp;gt;
+                                                &amp;lt;meta charset="UTF-8"&amp;gt;
+                                                &amp;lt;title&amp;gt;Test&amp;lt;/title&amp;gt;
+                                            &amp;lt;/head&amp;gt;
+                                            &amp;lt;body&amp;gt;
+                                            这是一个html
+                                            &amp;lt;/body&amp;gt;
+                                            &amp;lt;/html&amp;gt;
+                                        &lt;/code&gt;
+                                    &lt;/pre&gt;
+                                </code>
+                            </pre>
+                            其显示效果为：
+                            <pre class="line-numbers">
+                                <code class="language-html">
+                                    &lt;!DOCTYPE html&gt;
+                                    &lt;html lang="en"&gt;
+                                    &lt;head&gt;
+                                        &lt;meta charset="UTF-8"&gt;
+                                        &lt;title&gt;Test&lt;/title&gt;
+                                    &lt;/head&gt;
+                                    &lt;body&gt;
+                                    这是一个html
+                                    &lt;/body&gt;
+                                    &lt;/html&gt;
+                                </code>
+                            </pre>
+                        </div>
+                    </div>
+                </div><!-- prism -->
+
+            </div>
+        </div>
+    </div><!-- 前端 -->
+
+    <div class="layui-colla-item">
+        <h2 class="layui-colla-title">Java</h2>
+        <div class="layui-colla-content">
+            <h2 class="layui-colla-title">ValidateCode.jar</h2>
+            <div class="layui-colla-content">
+                <button class="layui-btn layui-btn-sm">下载</button><span>https://lib-wsg.oss-cn-shanghai.aliyuncs.com/ValidateCode.jar</span>
+                <hr>用于生成验证码，参考代码：
+                <pre class="line-numbers">
+                    <code class="language-java">
+                        @RequestMapping("get_verification_code")
+                        public void getVerificationCode(HttpSession session, HttpServletResponse response,
+                                                    @RequestParam(defaultValue = "100") int width, @RequestParam(defaultValue = "30") int height,
+                                                    @RequestParam(defaultValue = "4") int codeCount, @RequestParam(defaultValue = "6") int lineCount) throws IOException {
+                            ValidateCode validateCode = new ValidateCode(width, height, codeCount, lineCount);
+                            String code = validateCode.getCode().toLowerCase();
+                            System.out.println("验证码是：" + code);
+                            session.setAttribute(SessionKeyConst.VERIFICATION_CODE, code);
+                            validateCode.write(response.getOutputStream());
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </div><!-- Java -->
+
+</div>
+
+<div style="margin-top: 50px; margin-bottom: 30px; color: grey;">
+    <p>更新于2020年2月13日</p>
+    <br>
+    <p>本网站免费开放，但存储空间和流量需要成本，请节省资源。</p>
+    <br>
+    <p>如果希望收录其他内容，请联系 a13207123727@gmail.com 或微信 wsg1827</p>
+<!--    <br>-->
+<!--    <p><a href="http://index.wangshaogang.com/">查看我的更多网站</a></p>-->
+</div>
+
+<script src="layui/layui.js" charset="utf-8"></script>
+<script src="jQuery/jquery-3.4.1.min.js"></script>
+<script src="prism/prism.js"></script>
+<script>
+    layui.use(['element', 'layer']);
+    $(".layui-btn").click(function () {
+        location.href = $(this).next().html();
+    })
+</script>
+</body>
+</html>
