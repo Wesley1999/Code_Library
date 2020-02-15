@@ -43,12 +43,17 @@
                     <h2 class="layui-colla-title">适配移动端</h2>
                     <div class="layui-colla-content">
                         <div class="layui-colla-item">
-                            在head中添加下面的代码，可以禁止缩放
                             <pre>
-                                        <code class="language-html">
-                                            &lt;meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"&gt;
-                                        </code>
-                                    </pre>
+                                <code class="language-html">
+                                    &lt;!-- 禁止缩放 --&gt;
+                                    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"&gt;
+                                    &lt;!-- 添加到主屏幕时隐藏地址栏 --&gt;
+                                    &lt;meta name="apple-mobile-web-app-capable" content="yes" /&gt;
+                                    &lt;!-- 修改状态栏地址栏颜色 --&gt;
+                                    &lt;meta name="theme-color" content="#EFEFEF"&gt;
+                                </code>
+                            </pre>
+                            参考：<a href="https://www.bookstack.cn/read/doyoe-trip/user-content-hide-bar">https://www.bookstack.cn/read/doyoe-trip/user-content-hide-bar</a>
                         </div>
                     </div>
                 </div><!-- 适配移动端 -->
