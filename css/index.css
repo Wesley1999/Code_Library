@@ -1,0 +1,49 @@
+a {
+    color: blue;
+}
+::-webkit-scrollbar {
+    height: 10px;
+    width: 7px;
+    background: rgba(0,0,0,.1);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, .3);
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+}
+.layui-colla-title {
+    user-select:none;
+    line-height: 25px;
+    height: 25px;
+    background-color: #FFFFFF;
+}
+.layui-colla-content {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 10px;
+    border: 0;
+}
+.layui-colla-item {
+    border: 0;
+}
+.layui-collapse {
+    border: 0;
+}
+h2 {
+    margin-bottom: 0;
+}
+.title-end{
+    position:relative;
+    height:25px;
+    line-height:25px;
+    padding:0 15px 0 35px;
+    color:#333;
+    background-color:#FFFFFF;
+    cursor:pointer;
+    font-size:14px;
+    /*overflow:hidden*/
+}
+.title-end-content {
+    display: none;
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <h2 class="layui-colla-title">Git</h2>
+    <div class="layui-colla-content">
+
+        <h2 class="title-end">清除缓存</h2>
+        <div class="layui-colla-content">
+            更新.gitignore文件后要清除缓存
+            <pre>
+                        <code class="language-git">
+                            git rm -r --cached .
+                        </code>
+                    </pre>
+        </div><!-- 更新.gitignore -->
+
+        <h2 class="title-end">初次提交</h2>
+        <div class="layui-colla-content">
+                        <pre>
+                        <code class="language-git">
+                            git init
+                            git add .
+                            git commit -m "first commit"
+                            git remote add origin git@github.com:Wesley1999/repository_name.git
+                            git push -u origin master
+                        </code>
+                    </pre>
+        </div><!-- 初次提交 -->
+
+        <h2 class="title-end">语言识别错误</h2>
+        <div class="layui-colla-content">
+            添加一个.gitattributes文件，下面的内容可以将HTML文件视为Java文件
+            <pre>
+                            <code class="language-text">
+                                *.html linguist-language=java
+                            </code>
+                        </pre>
+        </div><!-- 绑定已有的仓库 -->
+
+    </div><!-- Git -->
+
+    <h2 class="title-end">向Linux传文件</h2>
+    <div class="title-end-content">
+        待补充
+    </div><!-- 向Linux传文件 -->
+
+    <script src="layui/layui.js" charset="utf-8"></script>
+    <script src="jQuery/jquery-3.4.1.min.js"></script>
+    <script src="prism/prism.js"></script>
+    <script src="js/common.js"></script>
+</body>
+</html>
