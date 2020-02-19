@@ -213,6 +213,37 @@
                     </div>
                 </div><!-- 转换为url参数 -->
                 <div class="layui-collapse">
+                    <h2 class="layui-colla-title">复制到剪切板</h2>
+                    <div class="layui-colla-content">
+                        <div class="layui-colla-item">
+                            <pre>
+                                <code class="language-javascript">
+                                    function copyText(text) {
+                                        var textarea = document.createElement("input");//创建input对象
+                                        var currentFocus = document.activeElement;//当前获得焦点的元素
+                                        document.body.appendChild(textarea);//添加元素
+                                        textarea.value = text;
+                                        textarea.focus();
+                                        if (textarea.setSelectionRange)
+                                            textarea.setSelectionRange(0, textarea.value.length);//获取光标起始位置到结束位置
+                                        else
+                                            textarea.select();
+                                        try {
+                                            var flag = document.execCommand("copy");//执行复制
+                                            alert(text)
+                                        } catch (eo) {
+                                            var flag = false;
+                                        }
+                                        document.body.removeChild(textarea);//删除元素
+                                        currentFocus.focus();
+                                        return flag;
+                                    }
+                                </code>
+                            </pre>
+                        </div>
+                    </div>
+                </div><!-- 复制到剪切板 -->
+                <div class="layui-collapse">
                     <h2 class="layui-colla-title">ajax</h2>
                     <div class="layui-colla-content">
                         <div class="layui-colla-item">
@@ -417,6 +448,14 @@
                                 </div>
                             </div>
                         </div><!-- fontawesome -->
+                        <div class="layui-collapse">
+                            <h2 class="layui-colla-title">emojis</h2>
+                            <div class="layui-colla-content">
+                                <div class="layui-colla-item">
+                                    <button class="layui-btn layui-btn-sm">下载</button><span>https://lib-wsg.oss-cn-shanghai.aliyuncs.com/emojis-v1.0.js</span>
+                                </div>
+                            </div>
+                        </div><!-- emojis -->
                     </div>
                 </div><!-- 第三方库 -->
             </div>
