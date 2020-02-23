@@ -174,15 +174,19 @@
                                              * @param paramsMap 键值对形式的参数
                                              * @returns {string} 格式：key1=value1&key2=value2，返回值可以直接直接或为http请求的参数（GET或POST均可）
                                              */
-                                            function parseParameterByMap(paramsMap) {
-                                                let data = "";
-                                                if (typeof(paramsMap) == "undefined") {
+                                            function parseParameter(data, key, value) {
+                                                if (key == null) {
+                                                    alert("key不能为null")
+                                                }
+                                                if (value == null || value === "" || typeof(value) == "undefined") {
                                                     return data;
                                                 }
-                                                for (let [key, value] of paramsMap) {
-                                                    data = parseParameter(data, key, value);
+                                                value = encodeURIComponent(value)
+                                                if (data == null || data === "") {
+                                                    return key + "=" + value;
+                                                } else {
+                                                    return data + "&" + key + "=" + value;
                                                 }
-                                                return data;
                                             }
 
                                             /**
@@ -192,20 +196,21 @@
                                              * @param value 参数值
                                              * @returns {string} 格式：key1=value1&key2=value2，返回值可以直接直接或为http请求的参数（GET或POST均可）
                                              */
-                                            function parseParameter(data, key, value) {
-                                                if (key == null) {
-                                                    alert("key不能为null");
-                                                }
-                                                if (value == null || value === "" || typeof(value) == "undefined") {
+                                            function parseParameterByMap(paramsMap) {
+                                                let data = "";
+                                                if (typeof(paramsMap) == "undefined") {
                                                     return data;
                                                 }
-                                                // 对value编码
-                                                value = encodeURIComponent(value);
-                                                if (data == null || data === "") {
-                                                    return key + "=" + value;
-                                                } else {
-                                                    return data + "&" + key + "=" + value;
+                                                for (let [key, value] of paramsMap) {
+                                                    if (Array.isArray(value)) {
+                                                        value.forEach(function(v) {
+                                                            data = parseParameter(data, key, v);
+                                                        });
+                                                    } else {
+                                                        data = parseParameter(data, key, value);
+                                                    }
                                                 }
+                                                return data;
                                             }
                                         </code>
                                     </pre>
