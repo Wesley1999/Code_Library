@@ -271,16 +271,29 @@
                     <h2 class="layui-colla-title">生成分页导航栏</h2>
                     <div class="layui-colla-content">
                         <div class="layui-colla-item">
+                            依赖bootstrap、MyBatis PageHelper<hr>
+                            <pre>
+                                <code class="language-html">
+                                    &lt;div style="display: flex; justify-content: center; user-select: none"&gt;
+                                        &lt;nav&gt;
+                                            &lt;ul class="pagination" id="pagination"&gt;&lt;/ul&gt;
+                                        &lt;/nav&gt;
+                                    &lt;/div&gt;
+                                </code>
+                            </pre>
                             <pre>
                                 <code class="language-javascript">
                                     /**
                                      * 生成分页导航栏
                                      * @param id 导航栏所在标签的id
                                      * @param returnData 用于生成导航栏的数据，由后端提供
-                                     * @param paramsMap 除pageNum外的筛选条件
+                                     * @param paramsMap 除pageNum外的筛选条件，可以为null
                                      * @param functionName 每页按钮点击时要执行的函数名称
                                      */
                                     function generatePaginationNavigationBar(id, returnData, paramsMap, functionName) {
+                                        if (paramsMap == null) {
+                                            paramsMap = new Map();
+                                        }
                                         let aimFunction = eval(functionName);
                                         let currentPage = returnData.data.pageNum;
                                         let firstPage = returnData.data.firstPage;
@@ -289,7 +302,7 @@
                                         if (returnData.data.isFirstPage) {
                                             $("#"+id).append("&lt;li&gt;&lt;a class='disabled' style='background-color: #f5f5f5'&gt;&amp;laquo;&lt;/a&gt;&lt;/li&gt;")
                                         } else {
-                                            $("#"+id).append("&lt;li&gt;&lt;a href='javascript:void(0);' class='wsg-eachPage' value="+firstPage+"&gt;&amp;laquo;&lt;/a&gt;&lt;/li&gt;")
+                                            $("#"+id).append("&lt;li&gt;&lt;a style='cursor: pointer;' class='wsg-eachPage' value="+firstPage+"&gt;&amp;laquo;&lt;/a&gt;&lt;/li&gt;")
                                         }
                                         // 每一页
                                         for (let i = 0; i &lt; returnData.data.navigatepageNums.length; i++) {
@@ -298,14 +311,14 @@
                                             if (pageNum === currentPage) {
                                                 $("#"+id).append("&lt;li&gt;&lt;a class='disabled' style='background-color: #f5f5f5'&gt;" + pageNum + "&lt;/a&gt;&lt;/li&gt;")
                                             } else {
-                                                $("#"+id).append("&lt;li&gt;&lt;a href='javascript:void(0);' class='wsg-eachPage' value="+pageNum+"&gt;"+pageNum+"&lt;/a&gt;&lt;/li&gt;")
+                                                $("#"+id).append("&lt;li&gt;&lt;a style='cursor: pointer;' class='wsg-eachPage' value="+pageNum+"&gt;"+pageNum+"&lt;/a&gt;&lt;/li&gt;")
                                             }
                                         }
                                         // 最后一页
                                         if (returnData.data.isLastPage) {
                                             $("#"+id).append("&lt;li&gt;&lt;a class='disabled' style='background-color: #f5f5f5'&gt;&amp;raquo;&lt;/a&gt;&lt;/li&gt;")
                                         } else {
-                                            $("#"+id).append("&lt;li&gt;&lt;a href='javascript:void(0);' class='wsg-eachPage' value="+lastPage+"&gt;&amp;raquo;&lt;/a&gt;&lt;/li&gt;")
+                                            $("#"+id).append("&lt;li&gt;&lt;a style='cursor: pointer;' class='wsg-eachPage' value="+lastPage+"&gt;&amp;raquo;&lt;/a&gt;&lt;/li&gt;")
                                         }
                                         $(".wsg-eachPage").click(function(thisPage){
                                             let pageNum = $(thisPage.target).attr("value");
@@ -314,6 +327,7 @@
                                             aimFunction(currentParamsMap)
                                         });
                                     }
+
                                 </code>
                             </pre>
                         </div>
