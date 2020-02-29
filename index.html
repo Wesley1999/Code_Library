@@ -249,6 +249,78 @@
                     </div>
                 </div><!-- 复制到剪切板 -->
                 <div class="layui-collapse">
+                    <h2 class="layui-colla-title">读写Cookie</h2>
+                    <div class="layui-colla-content">
+                        <div class="layui-colla-item">
+                            <pre>
+                                <code class="language-javascript">
+                                    function setCookie(key, value, maxAge=365*24*60*60*1000) {
+                                        var d = new Date();
+                                        d.setTime(d.getTime()+(maxAge));
+                                        var expires = "expires="+d.toGMTString();
+                                        document.cookie = key + "=" + value + "; " + expires;
+                                    }
+
+                                    function getCookie(key) {
+                                        var name = key + "=";
+                                        var ca = document.cookie.split(';');
+                                        for(var i=0; i&lt;ca.length; i++)
+                                        {
+                                            var c = ca[i].trim();
+                                            if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+                                        }
+                                        return "";
+                                    }
+                                </code>
+                            </pre>
+                        </div>
+                    </div>
+                </div><!-- 基于BootStrap3封装的提示信息模态框 -->
+                <div class="layui-collapse">
+                    <h2 class="layui-colla-title">基于BootStrap3封装的提示信息模态框</h2>
+                    <div class="layui-colla-content">
+                        <div class="layui-colla-item">
+                            <pre>
+                                <code class="language-javascript">
+                                    /**
+                                     * 依赖jQuery和BootStrap3（不支持Bootstrap4）
+                                     * 调用时再body标签的最后生成结点，点击确定200ms后删除（这个值如果设置的太小，会导致动画无法正常显示）
+                                     * @param content 模态框提示内容
+                                     * @param afterConfirm 回调函数，在点击模态框确定按钮后执行
+                                     */
+                                    function showInfoModal(content, afterConfirm) {
+                                        $("body").append('&lt;div class="modal fade" id="info_modal" tabindex="-1" aria-hidden="true" data-backdrop="static"&gt;\n' +
+                                            '    &lt;div class="modal-dialog" role="document"&gt;\n' +
+                                            '        &lt;div class="modal-content"&gt;\n' +
+                                            '            &lt;div class="modal-header"&gt;\n' +
+                                            '                &lt;h4 class="modal-title" &gt;Info&lt;/h4&gt;\n' +
+                                            '            &lt;/div&gt;\n' +
+                                            '            &lt;div class="modal-body"&gt;\n' +
+                                            '                &lt;div id="info_content"&gt;'+content+'&lt;/div&gt;\n' +
+                                            '            &lt;/div&gt;\n' +
+                                            '            &lt;div class="modal-footer"&gt;\n' +
+                                            '                &lt;button type="button" class="btn btn-primary" style="float: right" id="info_modal_confirm_button"&gt;Confirm&lt;/button&gt;\n' +
+                                            '            &lt;/div&gt;\n' +
+                                            '        &lt;/div&gt;\n' +
+                                            '    &lt;/div&gt;\n' +
+                                            '&lt;/div&gt;');
+                                        $("#info_modal").modal("show");
+                                        $("#info_modal_confirm_button").click(function () {
+                                            $("#info_modal").modal("hide");
+                                            setTimeout(function(){
+                                                $("#info_modal").remove();
+                                                if (afterConfirm != null) {
+                                                    afterConfirm();
+                                                }
+                                            }, 200);
+                                        })
+                                    }
+                                </code>
+                            </pre>
+                        </div>
+                    </div>
+                </div><!-- 读写Cookie -->
+                <div class="layui-collapse">
                     <h2 class="layui-colla-title">ajax</h2>
                     <div class="layui-colla-content">
                         <div class="layui-colla-item">
@@ -392,6 +464,8 @@
                                                 <button class="layui-btn layui-btn-sm">下载</button><span>https://lib-wsg.oss-cn-shanghai.aliyuncs.com/laydate-v5.0.9.zip</span>
                                                 <hr>
                                                 laydate是layui的一个独立模块，官方文档：<a href="https://www.layui.com/laydate/">https://www.layui.com/laydate/</a>
+                                                <hr>
+                                                引入laydate需要在layui之前
                                             </div>
                                         </div>
                                     </div><!-- laydate -->
@@ -475,6 +549,14 @@
                                 </div>
                             </div>
                         </div><!-- emojis -->
+                        <div class="layui-collapse">
+                            <h2 class="layui-colla-title">validate</h2>
+                            <div class="layui-colla-content">
+                                <div class="layui-colla-item">
+                                    <button class="layui-btn layui-btn-sm">下载</button><span>**********************</span>
+                                </div>
+                            </div>
+                        </div><!-- validate -->
                     </div>
                 </div><!-- 第三方库 -->
             </div>
