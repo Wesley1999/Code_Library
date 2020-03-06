@@ -286,9 +286,9 @@
                                      * 依赖jQuery和BootStrap3（不支持Bootstrap4）
                                      * 调用时再body标签的最后生成结点，点击确定200ms后删除（这个值如果设置的太小，会导致动画无法正常显示）
                                      * @param content 模态框提示内容
-                                     * @param afterConfirm 回调函数，在点击模态框确定按钮后执行
+                                     * @param confirmHandle 回调函数，在点击模态框确定按钮后执行
                                      */
-                                    function showInfoModal(content, afterConfirm) {
+                                    function showInfoModal(content="Success", confirmHandle) {
                                         $("body").append('&lt;div class="modal fade" id="info_modal" tabindex="-1" aria-hidden="true" data-backdrop="static"&gt;\n' +
                                             '    &lt;div class="modal-dialog" role="document"&gt;\n' +
                                             '        &lt;div class="modal-content"&gt;\n' +
