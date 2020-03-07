@@ -277,12 +277,18 @@
                     </div>
                 </div><!-- 读写Cookie  -->
                 <div class="layui-collapse">
-                    <h2 class="layui-colla-title">读写Cookie</h2>
+                    <h2 class="layui-colla-title">基于layui封装的轻量级toast</h2>
                     <div class="layui-colla-content">
                         <div class="layui-colla-item">
                             <pre>
                                 <code class="language-javascript">
-                                    function toast(msg, time=2000) {
+                                    // if parse == true，字符串会被解析成html标签
+                                    function toast(msg, time=2000, parse=false) {
+                                        if (!parse) {
+                                            msg = msg.replaceAll("&amp;", "&amp;amp;");
+                                            msg = msg.replaceAll("&gt;", "&amp;gt;");
+                                            msg = msg.replaceAll("&lt;", "&amp;lt;")
+                                        }
                                         layer.msg(msg, {
                                             time: time
                                             // btn: ['明白了', '知道了', '哦']
