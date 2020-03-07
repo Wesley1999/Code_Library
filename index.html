@@ -282,13 +282,13 @@
                         <div class="layui-colla-item">
                             <pre>
                                 <code class="language-javascript">
-                                    // if parse == true，字符串会被解析成html标签
                                     function toast(msg, time=2000, parse=false) {
                                         if (!parse) {
                                             msg = msg.replaceAll("&amp;", "&amp;amp;");
                                             msg = msg.replaceAll("&gt;", "&amp;gt;");
                                             msg = msg.replaceAll("&lt;", "&amp;lt;")
                                         }
+                                        msg = msg.replaceAll("\n", "&lt;br&gt;");
                                         layer.msg(msg, {
                                             time: time
                                             // btn: ['明白了', '知道了', '哦']
