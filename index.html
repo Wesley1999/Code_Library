@@ -1145,9 +1145,47 @@
     </div><!-- SQL -->
 
     <div class="layui-colla-item">
-        <h2 class="layui-colla-title">命令</h2>
+        <h2 class="layui-colla-title">Linux</h2>
         <div class="layui-colla-content">
             <div class="layui-colla-item">
+                <div class="layui-collapse">
+                    <h2 class="layui-colla-title">基本</h2>
+                    <div class="layui-colla-content">
+                        <pre>
+                            <code class="language-shell">
+                                # 解压tar.gz
+                                tar -zxvf filename
+
+                                # 修改权限
+                                chmod 777 file
+                            </code>
+                        </pre>
+                    </div>
+                </div><!-- 基本 -->
+                <div class="layui-collapse">
+                    <h2 class="layui-colla-title">vi编辑器</h2>
+                    <div class="layui-colla-content">
+                        <pre>
+                            <code class="language-shell">
+                                dd  删除当前行
+                                yy  复制当前行
+                                p   粘贴
+                            </code>
+                        </pre>
+                    </div>
+                </div><!-- Tomcat -->
+                <div class="layui-collapse">
+                    <h2 class="layui-colla-title">Tomcat</h2>
+                    <div class="layui-colla-content">
+                        <pre>
+                            <code class="language-shell">
+                                # 实时打印Tomcat控制台
+                                # cd tomcat/logs
+                                tail -f catalina.out
+                            </code>
+                        </pre>
+                    </div>
+                </div><!-- Tomcat -->
                 <div class="layui-collapse">
                     <h2 class="layui-colla-title">Git</h2>
                     <div class="layui-colla-content">
@@ -1156,7 +1194,7 @@
                             <div class="layui-colla-content">
                                 更新.gitignore文件后要清除缓存
                                 <pre>
-                                    <code class="language-git">
+                                    <code class="language-shell">
                                         git rm -r --cached .
                                     </code>
                                 </pre>
@@ -1166,7 +1204,7 @@
                             <h2 class="layui-colla-title">初次提交</h2>
                             <div class="layui-colla-content">
                                 <pre>
-                                    <code class="language-git">
+                                    <code class="language-shell">
                                         git init
                                         git add .
                                         git commit -m "first commit"
@@ -1189,6 +1227,24 @@
                         </div><!-- 绑定已有的仓库 -->
                     </div>
                 </div><!-- Git -->
+                <div class="layui-collapse">
+                    <h2 class="layui-colla-title">其他</h2>
+                    <div class="layui-colla-content">
+                        <div class="layui-colla-content">
+                        <pre>
+                            <code class="language-shell">
+                                # ssr
+                                # 待补充
+
+                                # xrdp
+                                yum install xrdp
+                                xrdp
+
+                            </code>
+                        </pre>
+                        </div>
+                    </div>
+                </div><!-- 其他 -->
                 <div class="layui-collapse">
                     <h2 class="layui-colla-title">向Linux传文件</h2>
                     <div class="layui-colla-content">
