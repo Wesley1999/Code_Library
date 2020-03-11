@@ -1158,6 +1158,10 @@
 
                                 # 修改权限
                                 chmod 777 file
+
+                                # 根据端口杀进程
+                                netstat -apn | grep [port]
+                                kill -9 [pid]
                             </code>
                         </pre>
                     </div>
