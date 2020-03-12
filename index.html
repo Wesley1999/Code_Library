@@ -366,7 +366,7 @@
                     </div>
                 </div><!-- ajax -->
                 <div class="layui-collapse">
-                    <h2 class="layui-colla-title">生成分页导航栏</h2>
+                    <h2 class="layui-colla-title">生成分页导航栏（依赖BootStrap3、MyBatis PageHelper）</h2>
                     <div class="layui-colla-content">
                         <div class="layui-colla-item">
                             依赖bootstrap、MyBatis PageHelper<hr>
@@ -382,50 +382,57 @@
                             <pre>
                                 <code class="language-javascript">
                                     /**
-                                     * 生成分页导航栏
-                                     * @param id 导航栏所在标签的id
-                                     * @param returnData 用于生成导航栏的数据，由后端提供
-                                     * @param paramsMap 除pageNum外的筛选条件，可以为null
-                                     * @param functionName 每页按钮点击时要执行的函数名称
+                                     * 生成分页导航栏，依赖BootStrap3、MyBatis PageHelper
+                                     * @param elem 导航栏所在的标签，默认值为为"#pagination"
+                                     * @param returnData 用于生成导航栏的数据，后端提供
+                                     * @param paramsMap 除pageNum外的筛选条件，可为null
+                                     * @param pageClickHandler 点击页码时的回调函数
                                      */
-                                    function generatePaginationNavigationBar(id, returnData, paramsMap, functionName) {
+                                    function generatePaginationNavigationBar(returnData, paramsMap, pageClickHandler, elem="#pagination") {
                                         if (paramsMap == null) {
                                             paramsMap = new Map();
                                         }
-                                        let aimFunction = eval(functionName);
+
+                                        if (returnData.data.total === 0) {
+                                            $("#pagination").empty();
+                                            return;
+                                        }
+
                                         let currentPage = returnData.data.pageNum;
-                                        let firstPage = returnData.data.firstPage;
-                                        let lastPage = returnData.data.lastPage;
+                                        let firstPage = 1;
+                                        let lastPage = returnData.data.pages;
+
+                                        $(elem).empty();
                                         // 第一页
                                         if (returnData.data.isFirstPage) {
-                                            $("#"+id).append("&lt;li&gt;&lt;a class='disabled' style='background-color: #f5f5f5'&gt;&amp;laquo;&lt;/a&gt;&lt;/li&gt;")
+                                            $(elem).append("&lt;li&gt;&lt;a class='disabled' style='background-color: #f5f5f5'&gt;&amp;laquo;&lt;/a&gt;&lt;/li&gt;")
                                         } else {
-                                            $("#"+id).append("&lt;li&gt;&lt;a style='cursor: pointer;' class='wsg-eachPage' value="+firstPage+"&gt;&amp;laquo;&lt;/a&gt;&lt;/li&gt;")
+                                            $(elem).append("&lt;li&gt;&lt;a style='cursor: pointer;' class='wsg-eachPage' value=" + firstPage + "&gt;&amp;laquo;&lt;/a&gt;&lt;/li&gt;")
                                         }
                                         // 每一页
                                         for (let i = 0; i &lt; returnData.data.navigatepageNums.length; i++) {
                                             let pageNum = returnData.data.navigatepageNums[i];
                                             // 如果是当前页
                                             if (pageNum === currentPage) {
-                                                $("#"+id).append("&lt;li&gt;&lt;a class='disabled' style='background-color: #f5f5f5'&gt;" + pageNum + "&lt;/a&gt;&lt;/li&gt;")
+                                                $(elem).append("&lt;li&gt;&lt;a class='disabled' style='background-color: #f5f5f5'&gt;" + pageNum + "&lt;/a&gt;&lt;/li&gt;")
                                             } else {
-                                                $("#"+id).append("&lt;li&gt;&lt;a style='cursor: pointer;' class='wsg-eachPage' value="+pageNum+"&gt;"+pageNum+"&lt;/a&gt;&lt;/li&gt;")
+                                                $(elem).append("&lt;li&gt;&lt;a style='cursor: pointer;' class='wsg-eachPage' value=" + pageNum + "&gt;" + pageNum + "&lt;/a&gt;&lt;/li&gt;")
                                             }
                                         }
                                         // 最后一页
                                         if (returnData.data.isLastPage) {
-                                            $("#"+id).append("&lt;li&gt;&lt;a class='disabled' style='background-color: #f5f5f5'&gt;&amp;raquo;&lt;/a&gt;&lt;/li&gt;")
+                                            $(elem).append("&lt;li&gt;&lt;a class='disabled' style='background-color: #f5f5f5'&gt;&amp;raquo;&lt;/a&gt;&lt;/li&gt;")
                                         } else {
-                                            $("#"+id).append("&lt;li&gt;&lt;a style='cursor: pointer;' class='wsg-eachPage' value="+lastPage+"&gt;&amp;raquo;&lt;/a&gt;&lt;/li&gt;")
+                                            $(elem).append("&lt;li&gt;&lt;a style='cursor: pointer;' class='wsg-eachPage' value=" + lastPage + "&gt;&amp;raquo;&lt;/a&gt;&lt;/li&gt;")
                                         }
-                                        $(".wsg-eachPage").click(function(thisPage){
+
+                                        $(".wsg-eachPage").click(function (thisPage) {
                                             let pageNum = $(thisPage.target).attr("value");
                                             let currentParamsMap = paramsMap;
-                                            currentParamsMap.set("pageNum", pageNum)
-                                            aimFunction(currentParamsMap)
+                                            currentParamsMap.set("pageNum", pageNum);
+                                            pageClickHandler(currentParamsMap);
                                         });
                                     }
-
                                 </code>
                             </pre>
                         </div>
