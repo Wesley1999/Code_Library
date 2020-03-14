@@ -218,7 +218,7 @@
                     </div>
                 </div><!-- 转换为url参数 -->
                 <div class="layui-collapse">
-                    <h2 class="layui-colla-title">复制到剪切板</h2>
+                    <h2 class="layui-colla-title">将文本复制到剪切板</h2>
                     <div class="layui-colla-content">
                         <div class="layui-colla-item">
                             <pre>
@@ -226,6 +226,9 @@
                                     function copyText(text) {
                                         let flag = false;
                                         let textarea = document.createElement("input");
+                                        textarea.style.position = 'absolute';
+                                        textarea.style.top = '50%';
+                                        textarea.style.left = '50%';
                                         let currentFocus = document.activeElement;
                                         document.body.appendChild(textarea);
                                         textarea.value = text;
@@ -501,13 +504,21 @@
                             </div>
                         </div><!-- layui -->
                         <div class="layui-collapse">
+                            <h2 class="layui-colla-title">clipboard</h2>
+                            <div class="layui-colla-content">
+                                <div class="layui-colla-item">
+                                    <button class="layui-btn layui-btn-sm">下载</button><span>http://file-wsg.oss-cn-shanghai.aliyuncs.com/clipboard.min.js</span>
+                                </div>
+                                <hr>
+                                引入js文件后，可使用函数<code class="language-javascript">marked()</code>将markdown转换为html。
+                            </div>
+                        </div><!-- clipboard -->
+                        <div class="layui-collapse">
                             <h2 class="layui-colla-title">marked（markdown转html）</h2>
                             <div class="layui-colla-content">
                                 <div class="layui-colla-item">
                                     <button class="layui-btn layui-btn-sm">下载</button><span>https://lib-wsg.oss-cn-shanghai.aliyuncs.com/marked.min.js</span>
                                 </div>
-                                <hr>
-                                引入js文件后，可使用函数<code class="language-javascript">marked()</code>将markdown转换为html。
                             </div>
                         </div><!-- marked -->
                         <div class="layui-collapse">
@@ -574,6 +585,8 @@
                             <div class="layui-colla-content">
                                 <div class="layui-colla-item">
                                     <button class="layui-btn layui-btn-sm">下载</button><span>https://lib-wsg.oss-cn-shanghai.aliyuncs.com/emojis-v1.0.js</span>
+                                    <hr>
+                                    这个是我自己收集后封装的~
                                 </div>
                             </div>
                         </div><!-- emojis -->
